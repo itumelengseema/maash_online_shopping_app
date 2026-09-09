@@ -15,64 +15,83 @@ class ProductsPage extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             // AppBar
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsetsGeometry.fromLTRB(
-                  AppSpacing.md,
-                  AppSpacing.lg,
-                  AppSpacing.md,
-                  AppSpacing.sm,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Maash.',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+            SliverAppBar(
+              backgroundColor: AppColors.white,
+              surfaceTintColor: AppColors.white,
+              elevation: 0,
+              floating: true,
+              snap: true,
+              pinned: false,
+              expandedHeight: 140,
 
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.shopping_bag_outlined),
+              flexibleSpace: FlexibleSpaceBar(
+                background: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      AppSpacing.md,
+                      AppSpacing.md,
+                      AppSpacing.sm,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'MAASH',
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 3,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.search),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.shopping_bag_outlined),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: AppSpacing.sm),
+
+                        Container(
+                          height: 48,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.md,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.background,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.search, size: 20),
+                              SizedBox(width: AppSpacing.sm),
+                              Expanded(
+                                child: Text(
+                                  'Search brands, products and more',
+                                  style: AppTextStyles.body,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-            // Search Bar
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                child: Container(
-                  height: 52,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.md,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.search),
-                      Text(
-                        'Search brands,products and more',
-                        style: AppTextStyles.body,
-                      ),
-                    ],
                   ),
                 ),
               ),
             ),
-
             // Category List
             SliverToBoxAdapter(
               child: SizedBox(
@@ -84,7 +103,7 @@ class ProductsPage extends StatelessWidget {
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: categories.length,
-                  separatorBuilder: (_, __) =>
+                  separatorBuilder: (_, _) =>
                       const SizedBox(width: AppSpacing.sm),
                   itemBuilder: (context, index) {
                     return Container(
@@ -110,9 +129,90 @@ class ProductsPage extends StatelessWidget {
                 ),
               ),
             ),
+
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsetsGeometry.fromLTRB(
+                  AppSpacing.md,
+                  AppSpacing.md,
+                  AppSpacing.md,
+                  AppSpacing.sm,
+                ),
+                child: Text('New arrivals', style: AppTextStyles.headingMedium),
+              ),
+            ),
+
+            SliverPadding(
+              padding: const EdgeInsets.all(AppSpacing.md),
+              sliver: SliverGrid(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return const _ProductPlaceholderCard();
+                }, childCount: 6),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: AppSpacing.sm,
+                  mainAxisSpacing: AppSpacing.lg,
+                  childAspectRatio: 0.62,
+                ),
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ProductPlaceholderCard extends StatelessWidget {
+  const _ProductPlaceholderCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: const Icon(
+                  Icons.image_outlined,
+                  size: 48,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: const BoxDecoration(
+                    color: AppColors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.favorite_border, size: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        const Text('MAASH SELECT', style: AppTextStyles.label),
+        const SizedBox(height: 3),
+        const Text(
+          'Essential everyday product',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: AppTextStyles.productTitle,
+        ),
+        const SizedBox(height: 4),
+        const Text('R 699', style: AppTextStyles.price),
+      ],
     );
   }
 }
