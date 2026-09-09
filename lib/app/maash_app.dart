@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:maash_online_shopping_app/products/views/products_page.dart';
+import 'package:maash_online_shopping_app/theme/app_theme.dart';
 
 class MaashApp extends StatelessWidget {
   const MaashApp({super.key});
@@ -8,7 +10,8 @@ class MaashApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Maash',
-      home: Scaffold(body: Center(child: Text("Maash"))),
+      theme: AppTheme.lightTheme,
+      home: const ProductsPage(),
     );
   }
 }
