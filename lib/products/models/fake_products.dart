@@ -1,0 +1,52 @@
+import 'package:maash_online_shopping_app/products/models/product.dart';
+
+final List<Product> fakeProducts = [
+  Product(
+    id: 1,
+    title: 'Essential Cotton T-Shirt',
+    category: 'Men',
+    price: 399.00,
+    imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab',
+    rating: 4.6,
+  ),
+  Product(
+    id: 2,
+    title: 'Classic Everyday Backpack',
+    category: 'Accessories',
+    price: 799.00,
+    imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62',
+    rating: 4.4,
+  ),
+  Product(
+    id: 3,
+    title: 'Minimal White Sneakers',
+    category: 'Shoes',
+    price: 1299.00,
+    imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772',
+    rating: 4.8,
+  ),
+  Product(
+    id: 4,
+    title: 'Classic Denim Jacket',
+    category: 'Women',
+    price: 999.00,
+    imageUrl: 'https://images.unsplash.com/photo-1543076447-215ad9ba6923',
+    rating: 4.7,
+  ),
+  Product(
+    id: 5,
+    title: 'Modern Wrist Watch',
+    category: 'Accessories',
+    price: 1499.00,
+    imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30',
+    rating: 4.5,
+  ),
+  Product(
+    id: 6,
+    title: 'Everyday Running Sneakers',
+    category: 'Shoes',
+    price: 1099.00,
+    imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff',
+    rating: 4.9,
+  ),
+];
