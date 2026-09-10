@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maash_online_shopping_app/components/product_card.dart';
 import 'package:maash_online_shopping_app/products/models/fake_products.dart';
-import 'package:maash_online_shopping_app/products/models/product.dart';
 import 'package:maash_online_shopping_app/theme/app_colors.dart';
 import 'package:maash_online_shopping_app/theme/app_spacing.dart';
 import 'package:maash_online_shopping_app/theme/app_text_styles.dart';
@@ -149,74 +148,24 @@ class ProductsPage extends StatelessWidget {
               padding: const EdgeInsets.all(AppSpacing.md),
               sliver: SliverGrid(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  final Product = fakeProducts[index];
-                  return ProductCard();
-                }, childCount: 6),
+                  final product = fakeProducts[index];
+                  return ProductCard(
+                    product: product,
+                    onTap: () {},
+                    onFavouriteTap: () {},
+                  );
+                }, childCount: fakeProducts.length),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: AppSpacing.sm,
                   mainAxisSpacing: AppSpacing.lg,
-                  childAspectRatio: 0.62,
+                  mainAxisExtent: 340,
                 ),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _ProductPlaceholderCard extends StatelessWidget {
-  const _ProductPlaceholderCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColors.background,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: const Icon(
-                  Icons.image_outlined,
-                  size: 48,
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: AppColors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.favorite_border, size: 18),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        const Text('MAASH SELECT', style: AppTextStyles.label),
-        const SizedBox(height: 3),
-        const Text(
-          'Essential everyday product',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: AppTextStyles.productTitle,
-        ),
-        const SizedBox(height: 4),
-        const Text('R 699', style: AppTextStyles.price),
-      ],
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maash_online_shopping_app/products/models/product.dart';
+import 'package:maash_online_shopping_app/theme/app_colors.dart';
+import 'package:maash_online_shopping_app/theme/app_spacing.dart';
+import 'package:maash_online_shopping_app/theme/app_text_styles.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -15,6 +18,103 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AspectRatio(
+            aspectRatio: 3 / 4,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColors.background,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.network(
+                    product.imageUrl,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+
+                      return const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Icon(
+                          Icons.image_not_supported_outlined,
+                          size: 40,
+                          color: AppColors.textSecondary,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GestureDetector(
+                    onTap: onFavouriteTap,
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      decoration: const BoxDecoration(
+                        color: AppColors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.favorite_border, size: 18),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: AppSpacing.sm),
+
+          Text(product.category.toUpperCase(), style: AppTextStyles.label),
+
+          const SizedBox(height: 3),
+
+          Text(
+            product.title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.productTitle,
+          ),
+
+          const SizedBox(height: 4),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'R ${product.price.toStringAsFixed(0)}',
+                style: AppTextStyles.price,
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.star, size: 15),
+                  const SizedBox(width: 3),
+                  Text(
+                    product.rating.toStringAsFixed(1),
+                    style: AppTextStyles.label,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -8,6 +8,8 @@ final List<Product> fakeProducts = [
     price: 399.00,
     imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab',
     rating: 4.6,
+    ratingCount: 7,
+    description: '',
   ),
   Product(
     id: 2,
@@ -16,6 +18,8 @@ final List<Product> fakeProducts = [
     price: 799.00,
     imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62',
     rating: 4.4,
+    ratingCount: 5,
+    description: '',
   ),
   Product(
     id: 3,
@@ -24,6 +28,8 @@ final List<Product> fakeProducts = [
     price: 1299.00,
     imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772',
     rating: 4.8,
+    ratingCount: 1,
+    description: '',
   ),
   Product(
     id: 4,
@@ -32,6 +38,8 @@ final List<Product> fakeProducts = [
     price: 999.00,
     imageUrl: 'https://images.unsplash.com/photo-1543076447-215ad9ba6923',
     rating: 4.7,
+    ratingCount: 0,
+    description: '',
   ),
   Product(
     id: 5,
@@ -40,6 +48,8 @@ final List<Product> fakeProducts = [
     price: 1499.00,
     imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30',
     rating: 4.5,
+    ratingCount: 0,
+    description: '',
   ),
   Product(
     id: 6,
@@ -48,5 +58,7 @@ final List<Product> fakeProducts = [
     price: 1099.00,
     imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff',
     rating: 4.9,
+    ratingCount: 0,
+    description: '',
   ),
 ];
