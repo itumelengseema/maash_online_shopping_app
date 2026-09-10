@@ -37,7 +37,7 @@ class ProductCard extends StatelessWidget {
                   clipBehavior: Clip.antiAlias,
                   child: Image.network(
                     product.imageUrl,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     width: double.infinity,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) {

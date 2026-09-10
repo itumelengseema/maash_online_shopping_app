@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:maash_online_shopping_app/components/product_card.dart';
 import 'package:maash_online_shopping_app/products/models/fake_products.dart';
+import 'package:maash_online_shopping_app/products/view_models/products_view_model.dart';
 import 'package:maash_online_shopping_app/theme/app_colors.dart';
 import 'package:maash_online_shopping_app/theme/app_spacing.dart';
 import 'package:maash_online_shopping_app/theme/app_text_styles.dart';
+import 'package:provider/provider.dart';
 
 class ProductsPage extends StatelessWidget {
   const ProductsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<ProductsViewModel>();
     final categories = ['New In', 'Men', 'Women', 'Accessories', 'Electronics'];
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -148,13 +151,13 @@ class ProductsPage extends StatelessWidget {
               padding: const EdgeInsets.all(AppSpacing.md),
               sliver: SliverGrid(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  final product = fakeProducts[index];
+                  final product = viewModel.products[index];
                   return ProductCard(
                     product: product,
                     onTap: () {},
                     onFavouriteTap: () {},
                   );
-                }, childCount: fakeProducts.length),
+                }, childCount: viewModel.products.length),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: AppSpacing.sm,
