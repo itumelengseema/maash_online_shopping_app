@@ -1,4 +1,4 @@
-import 'package:maash_online_shopping_app/products/models/product.dart';
+import 'package:maash_online_shopping_app/products/models/product_model.dart';
 
 final List<Product> fakeProducts = [
   Product(

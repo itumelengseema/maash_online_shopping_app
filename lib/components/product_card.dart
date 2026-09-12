@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maash_online_shopping_app/products/models/product.dart';
+import 'package:maash_online_shopping_app/products/models/product_model.dart';
 import 'package:maash_online_shopping_app/theme/app_colors.dart';
 import 'package:maash_online_shopping_app/theme/app_spacing.dart';
 import 'package:maash_online_shopping_app/theme/app_text_styles.dart';
