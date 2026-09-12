@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maash_online_shopping_app/network/api_result.dart';
 import 'package:maash_online_shopping_app/products/repository/products_repository.dart';
+import 'package:maash_online_shopping_app/products/view_models/products_state.dart';
 
-import '../models/product.dart';
-
-enum ProductsState { initial, loading, loaded, empty, error }
+import '../models/product_model.dart';
 
 class ProductsViewModel extends ChangeNotifier {
   final ProductsRepository productsRepository;
@@ -26,16 +25,18 @@ class ProductsViewModel extends ChangeNotifier {
     _errorMessage = null;
 
     notifyListeners();
-    
+
     final result = await productsRepository.getProducts();
 
-    switch(result){
+    switch (result) {
       case ApiSuccess():
         _products = result.data;
 
-        if (_products.isEmpty){
+        if (_products.isEmpty) {
           _state = ProductsState.empty;
-        } else{_state = ProductsState.loaded;}
+        } else {
+          _state = ProductsState.loaded;
+        }
 
       case ApiFailure():
         _state = ProductsState.error;
