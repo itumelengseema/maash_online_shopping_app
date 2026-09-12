@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maash_online_shopping_app/components/product_card.dart';
+import 'package:maash_online_shopping_app/products/enums/product_category.dart';
 import 'package:maash_online_shopping_app/products/view_models/products_view_model.dart';
 import 'package:maash_online_shopping_app/theme/app_colors.dart';
 import 'package:maash_online_shopping_app/theme/app_spacing.dart';
@@ -15,7 +16,7 @@ class ProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.watch<ProductsViewModel>();
 
-    final categories = ['New In', 'Men', 'Women', 'Accessories', 'Electronics'];
+    final List<ProductCategory> categories = ProductCategory.values;
 
     if (viewModel.state == ProductsState.loading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -28,19 +29,20 @@ class ProductsPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.error_outline, size: 48),
-              SizedBox(height: 16),
+              const Icon(Icons.error_outline, size: 48),
+              const SizedBox(height: 16),
               Text(viewModel.errorMessage ?? 'Something went wrong'),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: viewModel.loadProducts,
-                child: Text('Try again'),
+                child: const Text('Try again'),
               ),
             ],
           ),
         ),
       );
     }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
@@ -48,7 +50,6 @@ class ProductsPage extends StatelessWidget {
           onRefresh: viewModel.loadProducts,
           child: CustomScrollView(
             slivers: [
-              // AppBar
               SliverAppBar(
                 backgroundColor: AppColors.white,
                 surfaceTintColor: AppColors.white,
@@ -57,7 +58,6 @@ class ProductsPage extends StatelessWidget {
                 snap: true,
                 pinned: false,
                 expandedHeight: 140,
-
                 flexibleSpace: FlexibleSpaceBar(
                   background: SafeArea(
                     child: Padding(
@@ -96,9 +96,7 @@ class ProductsPage extends StatelessWidget {
                               ),
                             ],
                           ),
-
                           const SizedBox(height: AppSpacing.sm),
-
                           Container(
                             height: 48,
                             padding: const EdgeInsets.symmetric(
@@ -128,7 +126,8 @@ class ProductsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // Category List
+
+              // CATEGORY LIST
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 64,
@@ -142,6 +141,8 @@ class ProductsPage extends StatelessWidget {
                     separatorBuilder: (_, _) =>
                         const SizedBox(width: AppSpacing.sm),
                     itemBuilder: (context, index) {
+                      final category = categories[index];
+
                       return Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppSpacing.md,
@@ -153,7 +154,7 @@ class ProductsPage extends StatelessWidget {
                           border: Border.all(color: AppColors.border),
                         ),
                         child: Text(
-                          categories[index],
+                          _formatCategoryName(category),
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
@@ -170,7 +171,7 @@ class ProductsPage extends StatelessWidget {
 
               const SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(
+                  padding: EdgeInsets.fromLTRB(
                     AppSpacing.md,
                     AppSpacing.md,
                     AppSpacing.md,
@@ -188,6 +189,7 @@ class ProductsPage extends StatelessWidget {
                 sliver: SliverGrid(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final product = viewModel.products[index];
+
                     return ProductCard(
                       product: product,
                       onTap: () {},
@@ -207,5 +209,11 @@ class ProductsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _formatCategoryName(ProductCategory category) {
+    final name = category.name;
+
+    return name[0].toUpperCase() + name.substring(1);
   }
 }

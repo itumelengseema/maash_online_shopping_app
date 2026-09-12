@@ -81,7 +81,7 @@ class ProductCard extends StatelessWidget {
 
           const SizedBox(height: AppSpacing.sm),
 
-          Text(product.category.toUpperCase(), style: AppTextStyles.label),
+          Text(product.category.name.toUpperCase(), style: AppTextStyles.label),
 
           const SizedBox(height: 3),
 
